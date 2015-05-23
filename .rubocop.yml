@@ -1,0 +1,10 @@
+Metrics/ClassLength:
+  Max: 104
+  Enabled: false
+
+Metrics/MethodLength:
+  Max: 21
+  Enabled: false
+
+Style/FileName:
+ Enabled: false
