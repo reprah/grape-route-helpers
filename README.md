@@ -18,15 +18,34 @@ Run `gem install grape-route-helpers` if you're not.
 require 'grape/route_helpers'
 ```
 
+3.) If your Grape APIs are defined in a Sinatra or Rack web application, you need to write a rake task called `:environment` that loads the application's environment first. This gem's tasks are dependent on it. You could put this in the root of your project directory:
+
+```ruby
+# Rakefile
+
+require 'rake'
+require 'bundler'
+Bundler.setup
+require 'grape-route-helpers'
+require 'grape-route-helpers/tasks'
+
+desc 'load the Sinatra environment.'
+task :environment do
+  require File.expand_path('your_app_file', File.dirname(__FILE__))
+end
+```
+
+Rails applications with mounted Grape APIs don't require an extra step here.
+
 ### Usage examples
 
-* To see which methods correspond to which paths, and which options you can pass them:
+To see which methods correspond to which paths, and which options you can pass them:
 
 ```bash
 $ rake grape:route_helpers
 ```
 
-* Use the methods inside your Grape API actions. Given this example API:
+Use the methods inside your Grape API actions. Given this example API:
 
 ```ruby
 class ExampleAPI < Grape::API
