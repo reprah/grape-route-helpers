@@ -16,8 +16,12 @@ module GrapeRouteHelpers
       puts("== GRAPE ROUTE HELPERS ==\n")
       route_attributes.each do |attributes|
         printf("%s: %s\n", 'Path', attributes[:route_path])
-        printf("%s: %s\n", 'Helper Method', attributes[:helper_names].join(', '))
-        printf("%s: %s\n", 'Arguments', attributes[:helper_arguments].join(', '))
+        printf("%s: %s\n",
+               'Helper Method',
+               attributes[:helper_names].join(', '))
+        printf("%s: %s\n",
+               'Arguments',
+               attributes[:helper_arguments].join(', '))
         puts("\n")
       end
     end

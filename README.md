@@ -28,7 +28,7 @@ require 'grape'
 require 'grape/route_helpers'
 ```
 
-3.) Write a rake task called `:environment` that loads the application's environment first. This gem's tasks are dependent on it. You could put this in the root of your project directory:
+2.) Write a rake task called `:environment` that loads the application's environment first. This gem's tasks are dependent on it. You could put this in the root of your project directory:
 
 ```ruby
 # Rakefile
@@ -78,7 +78,7 @@ class ExampleAPI < Grape::API
   end
 
   route :any, '*anything' do
-    redirect_to api_v1_cats_path
+    redirect api_v1_cats_path
   end
 end
 ```
@@ -102,10 +102,15 @@ api_v1_anything_path # => '/api/v1/*anything'
 ### Contributing
 
 1.) Fork it
-2.) Create your feature branch (git checkout -b my-new-feature)
+
+2.) Create your feature branch `(git checkout -b my-new-feature)`
+
 3.) Write specs for your feature
-4.) Commit your changes (git commit -am 'Add some feature')
-5.) Push to the branch (git push origin my-new-feature)
+
+4.) Commit your changes `(git commit -am 'Add some feature')`
+
+5.) Push to the branch `(git push origin my-new-feature)`
+
 6.) Create a new pull request
 
 ### License
