@@ -1,6 +1,6 @@
 # grape-route-helpers
 
- Provides named route helpers for Grape APIs, similar to Rails' route helpers.
+ Provides named route helpers for Grape APIs, similar to [Rails' route helpers](http://edgeguides.rubyonrails.org/routing.html#path-and-url-helpers).
 
 ### Installation
 

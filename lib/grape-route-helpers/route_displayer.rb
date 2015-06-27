@@ -13,7 +13,7 @@ module GrapeRouteHelpers
     end
 
     def display
-      puts("== GRAPE ROUTE HELPERS ==\n")
+      puts("== GRAPE ROUTE HELPERS ==\n\n")
       route_attributes.each do |attributes|
         printf("%s: %s\n", 'Path', attributes[:route_path])
         printf("%s: %s\n",
