@@ -13,4 +13,4 @@ module GrapeRouteHelpers
 end
 
 Grape::API.extend GrapeRouteHelpers::AllRoutes
-Grape::Endpoint.include GrapeRouteHelpers::NamedRouteMatcher
+Grape::Endpoint.send(:include, GrapeRouteHelpers::NamedRouteMatcher)

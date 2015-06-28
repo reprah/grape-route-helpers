@@ -74,7 +74,7 @@ module GrapeRouteHelpers
     end
 
     def path_segments
-      pattern = %r{\(/?\.:format\)|/|\*}
+      pattern = /\(\/?\.:?\w+\)|\/|\*/
       route_path.split(pattern).reject(&:blank?)
     end
 
