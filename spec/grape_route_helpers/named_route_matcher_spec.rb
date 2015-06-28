@@ -24,7 +24,7 @@ describe GrapeRouteHelpers::NamedRouteMatcher do
 
   let(:show_route) do
     routes.detect do |route|
-      route.route_namespace =~ /cats\/:id/
+      route.route_namespace =~ %r{cats/:id}
     end
   end
 
