@@ -1,18 +1,31 @@
 module GrapeRouteHelpers
   # wrapper around Grape::Route that adds a helper method
   class DecoratedRoute
-    attr_reader :route, :helper_names, :helper_arguments
+    attr_reader :route, :helper_names, :helper_arguments, :extension
 
     def initialize(route)
       @route = route
       @helper_names = []
       @helper_arguments = required_helper_segments
+      @extension = default_extension
       define_path_helpers
+    end
+
+    def default_extension
+      pattern = /\((\.\:?\w+)\)$/
+      match = route_path.match(pattern)
+      return '' unless match
+      ext = match.captures.first
+      if ext == '.:format'
+        ''
+      else
+        ext
+      end
     end
 
     def define_path_helpers
       route_versions.each do |version|
-        route_attributes = { version: version }
+        route_attributes = { version: version, format: extension }
         method_name = path_helper_name(route_attributes)
         @helper_names << method_name
         define_path_helper(method_name, route_attributes)
@@ -28,9 +41,8 @@ module GrapeRouteHelpers
 
           content_type = attrs.delete(:format)
           path = '/' + path_segments_with_values(attrs).join('/')
-          extension = content_type ? '.' + content_type : ''
 
-          path + extension
+          path + content_type
         end
       RUBY
       instance_eval method_body

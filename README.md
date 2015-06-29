@@ -87,13 +87,13 @@ You'd have the following methods available inside your Grape API actions:
 
 ```ruby
 # specifying the version when using Grape's "path" versioning strategy
-api_v1_ping_path # => '/api/v1/ping'
+api_v1_ping_path # => '/api/v1/ping.json'
 
 # specifying the format
-api_v1_cats_path(format: 'xml') # => '/api/v1/cats.xml'
+api_v1_cats_path(format: '.xml') # => '/api/v1/cats.xml'
 
 # passing in values required to build a path
-api_v1_cats_path(id: 1) # => '/api/v1/cats/1'
+api_v1_cats_path(id: 1) # => '/api/v1/cats/1.json'
 
 # catch-all paths have helpers
 api_v1_anything_path # => '/api/v1/*anything'

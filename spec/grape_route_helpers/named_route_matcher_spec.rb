@@ -123,7 +123,7 @@ describe GrapeRouteHelpers::NamedRouteMatcher do
         api
 
         path = api_v1_ping_path
-        expect(path).to eq('/api/v1/ping')
+        expect(path).to eq('/api/v1/ping.json')
       end
 
       context 'when argument to the helper is not a hash' do
@@ -154,10 +154,10 @@ describe GrapeRouteHelpers::NamedRouteMatcher do
         api
 
         show_path = api_v1_cats_path('id' => 1)
-        expect(show_path).to eq('/api/v1/cats/1')
+        expect(show_path).to eq('/api/v1/cats/1.json')
 
         index_path = api_v1_cats_path
-        expect(index_path).to eq('/api/v1/cats')
+        expect(index_path).to eq('/api/v1/cats.json')
       end
     end
   end

@@ -132,10 +132,18 @@ describe GrapeRouteHelpers::DecoratedRoute do
   end
 
   describe 'path helper method' do
+    # handle different Grape::Route#route_path formats in Grape 0.12.0
+    context 'when route_path contains a specific format' do
+      it 'returns the correct path with the correct format' do
+        path = index_route.api_v1_cats_path
+        expect(path).to eq('/api/v1/cats.json')
+      end
+    end
+
     context 'when helper does not require arguments' do
       it 'returns the correct path' do
         path = index_route.api_v1_cats_path
-        expect(path).to eq('/api/v1/cats')
+        expect(path).to eq('/api/v1/cats.json')
       end
     end
 
@@ -143,7 +151,7 @@ describe GrapeRouteHelpers::DecoratedRoute do
       context 'when not missing arguments' do
         it 'returns the correct path' do
           path = show_route.api_v1_cats_path(id: 1)
-          expect(path).to eq('/api/v1/cats/1')
+          expect(path).to eq('/api/v1/cats/1.json')
         end
       end
     end
@@ -154,14 +162,14 @@ describe GrapeRouteHelpers::DecoratedRoute do
       end
 
       it 'returns a path for each version' do
-        expect(index_route.api_v1_cats_path).to eq('/api/v1/cats')
-        expect(index_route.api_v2_cats_path).to eq('/api/v2/cats')
+        expect(index_route.api_v1_cats_path).to eq('/api/v1/cats.json')
+        expect(index_route.api_v2_cats_path).to eq('/api/v2/cats.json')
       end
     end
 
     context 'when a format is given' do
       it 'returns the path with a correct extension' do
-        path = show_route.api_v1_cats_path(id: 1, format: 'xml')
+        path = show_route.api_v1_cats_path(id: 1, format: '.xml')
         expect(path).to eq('/api/v1/cats/1.xml')
       end
     end
