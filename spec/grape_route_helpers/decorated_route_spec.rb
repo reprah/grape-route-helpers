@@ -132,6 +132,23 @@ describe GrapeRouteHelpers::DecoratedRoute do
   end
 
   describe 'path helper method' do
+    context 'when given a "params" key' do
+      context 'when value under "params" key is a hash' do
+        it 'creates a query string' do
+          query = { foo: :bar, baz: :zot }
+          path = index_route.api_v1_cats_path({ params:  query })
+          expect(path).to eq('/api/v1/cats.json?' + query.to_param)
+        end
+      end
+
+      context 'when value under "params" is not a hash' do
+        it 'coerces the value into a string' do
+          path = index_route.api_v1_cats_path({ params:  1 })
+          expect(path).to eq('/api/v1/cats.json?1')
+        end
+      end
+    end
+
     # handle different Grape::Route#route_path formats in Grape 0.12.0
     context 'when route_path contains a specific format' do
       it 'returns the correct path with the correct format' do

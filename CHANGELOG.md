@@ -1,5 +1,9 @@
 # Changelog
 
+## July 5 2015
+
+* You can now pass query parameters to helper functions in order to generate your own query string (Issue #1)
+
 ## June 28 2015
 
 Release 1.0.1

@@ -92,6 +92,9 @@ api_v1_ping_path # => '/api/v1/ping.json'
 # specifying the format
 api_v1_cats_path(format: '.xml') # => '/api/v1/cats.xml'
 
+# adding a query string
+api_v1_cats_path(params: { sort_by: :age }) # => '/api/v1/cats?sort_by=age'
+
 # passing in values required to build a path
 api_v1_cats_path(id: 1) # => '/api/v1/cats/1.json'
 

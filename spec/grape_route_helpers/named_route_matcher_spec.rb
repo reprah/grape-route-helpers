@@ -160,5 +160,17 @@ describe GrapeRouteHelpers::NamedRouteMatcher do
         expect(index_path).to eq('/api/v1/cats.json')
       end
     end
+
+    context 'when query params are passed in' do
+      it 'uses arguments to infer which route to use' do
+        api
+
+        show_path = api_v1_cats_path('id' => 1, params: { 'foo' => 'bar' })
+        expect(show_path).to eq('/api/v1/cats/1.json?foo=bar')
+
+        index_path = api_v1_cats_path(params: { 'foo' => 'bar' })
+        expect(index_path).to eq('/api/v1/cats.json?foo=bar')
+      end
+    end
   end
 end

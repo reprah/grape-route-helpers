@@ -39,13 +39,22 @@ module GrapeRouteHelpers
             #{route_attributes}.merge(attributes)
           )
 
+          query_params = attrs.delete(:params)
           content_type = attrs.delete(:format)
           path = '/' + path_segments_with_values(attrs).join('/')
 
-          path + content_type
+          path + content_type + query_string(query_params)
         end
       RUBY
       instance_eval method_body
+    end
+
+    def query_string(params)
+      if params.nil?
+        ''
+      else
+        '?' + params.to_param
+      end
     end
 
     def route_versions
@@ -108,20 +117,17 @@ module GrapeRouteHelpers
       dynamic_path_segments - segments_in_options
     end
 
-    def optional_segments
-      ['format']
+    def special_keys
+      ['format', 'params']
     end
 
     def uses_segments_in_path_helper?(segments)
-      requested = segments - optional_segments
-      required = required_helper_segments
+      segments = segments.reject { |x| special_keys.include?(x) }
 
-      if requested.empty? && required.empty?
-        true
+      if required_helper_segments.empty? && segments.any?
+        false
       else
-        requested.all? do |segment|
-          required.include?(segment)
-        end
+        required_helper_segments.all? { |x| segments.include?(x) }
       end
     end
 
