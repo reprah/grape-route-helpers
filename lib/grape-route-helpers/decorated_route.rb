@@ -1,10 +1,12 @@
 module GrapeRouteHelpers
   # wrapper around Grape::Route that adds a helper method
   class DecoratedRoute
-    attr_reader :route, :helper_names, :helper_arguments, :extension
+    attr_reader :route, :helper_names, :helper_arguments,
+                :extension, :route_options
 
     def initialize(route)
       @route = route
+      @route_options = route.instance_variable_get(:@options)
       @helper_names = []
       @helper_arguments = required_helper_segments
       @extension = default_extension
@@ -66,13 +68,18 @@ module GrapeRouteHelpers
     end
 
     def path_helper_name(opts = {})
-      segments = path_segments_with_values(opts)
+      if route.route_as
+        name = route.route_as.to_s
+      else
+        segments = path_segments_with_values(opts)
 
-      name = if segments.empty?
-               'root'
-             else
-               segments.join('_')
-             end
+        name = if segments.empty?
+                 'root'
+               else
+                 segments.join('_')
+               end
+      end
+
       name + '_path'
     end
 
@@ -118,7 +125,7 @@ module GrapeRouteHelpers
     end
 
     def special_keys
-      ['format', 'params']
+      %w(format params)
     end
 
     def uses_segments_in_path_helper?(segments)
@@ -131,22 +138,20 @@ module GrapeRouteHelpers
       end
     end
 
-    # accessing underlying Grape::Route
-
     def route_path
-      route.route_path
-    end
-
-    def route_options
-      route.instance_variable_get(:@options)
+      route_options[:path]
     end
 
     def route_version
-      route.route_version
+      route_options[:version]
     end
 
     def route_namespace
-      route.route_namespace
+      route_options[:namespace]
+    end
+
+    def route_method
+      route_options[:method]
     end
   end
 end

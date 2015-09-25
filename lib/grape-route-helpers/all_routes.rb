@@ -9,7 +9,12 @@ module GrapeRouteHelpers
     end
 
     def all_routes
-      subclasses.flat_map { |s| s.send(:prepare_routes) }
+      routes = subclasses.flat_map { |s| s.send(:prepare_routes) }
+      # delete duplicate routes
+      routes.delete_if do |route|
+        all_options = routes.map { |r| r.instance_variable_get(:@options) }
+        all_options.count(route.instance_variable_get(:@options)) > 1
+      end
     end
   end
 end

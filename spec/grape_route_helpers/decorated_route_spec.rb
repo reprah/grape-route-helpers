@@ -21,7 +21,24 @@ describe GrapeRouteHelpers::DecoratedRoute do
     routes.detect { |route| route.route_path =~ /\*/ }
   end
 
+  let(:custom_route) do
+    routes.detect { |route| route.route_path =~ /custom_name/ }
+  end
+
   describe '#helper_names' do
+    context 'when a route is given a custom helper name' do
+      it 'uses the custom name instead of the dynamically generated one' do
+        expect(custom_route.helper_names.first)
+          .to eq('my_custom_route_name_path')
+      end
+
+      it 'returns the correct path' do
+        expect(
+          custom_route.my_custom_route_name_path
+        ).to eq('/api/v1/custom_name.json')
+      end
+    end
+
     context 'when an API has multiple versions' do
       let(:api_versions) { %w(beta alpha v1) }
 
@@ -136,14 +153,14 @@ describe GrapeRouteHelpers::DecoratedRoute do
       context 'when value under "params" key is a hash' do
         it 'creates a query string' do
           query = { foo: :bar, baz: :zot }
-          path = index_route.api_v1_cats_path({ params:  query })
+          path = index_route.api_v1_cats_path(params:  query)
           expect(path).to eq('/api/v1/cats.json?' + query.to_param)
         end
       end
 
       context 'when value under "params" is not a hash' do
         it 'coerces the value into a string' do
-          path = index_route.api_v1_cats_path({ params:  1 })
+          path = index_route.api_v1_cats_path(params:  1)
           expect(path).to eq('/api/v1/cats.json?1')
         end
       end

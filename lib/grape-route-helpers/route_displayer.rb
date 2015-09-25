@@ -6,6 +6,7 @@ module GrapeRouteHelpers
       Grape::API.decorated_routes.map do |route|
         {
           route_path: route.route_path,
+          route_method: route.route_method,
           helper_names: route.helper_names,
           helper_arguments: route.helper_arguments
         }
@@ -15,6 +16,7 @@ module GrapeRouteHelpers
     def display
       puts("== GRAPE ROUTE HELPERS ==\n\n")
       route_attributes.each do |attributes|
+        printf("%s: %s\n", 'Verb', attributes[:route_method])
         printf("%s: %s\n", 'Path', attributes[:route_path])
         printf("%s: %s\n",
                'Helper Method',

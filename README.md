@@ -45,13 +45,18 @@ task :environment do
 end
 ```
 
-### Usage examples
+### Usage
+
+#### List All Helper Names
 
 To see which methods correspond to which paths, and which options you can pass them:
 
 ```bash
+# In your API root directory, at the command line
 $ rake grape:route_helpers
 ```
+
+#### Use Helpers in Your API
 
 Use the methods inside your Grape API actions. Given this example API:
 
@@ -100,6 +105,39 @@ api_v1_cats_path(id: 1) # => '/api/v1/cats/1.json'
 
 # catch-all paths have helpers
 api_v1_anything_path # => '/api/v1/*anything'
+```
+
+#### Custom Helper Names
+
+If you want to assign a custom helper name to a route, pass the `:as` option when creating your route in your API:
+
+```ruby
+class Base < Grape::API
+  get 'ping', as: 'is_the_server_running'
+    'pong'
+  end
+end
+```
+
+This results in creating a helper called `is_the_server_running_path`.
+
+#### Testing
+
+You can you the route helpers in our API tests by including the `GrapeRouteHelpers::NamedRouteMatcher` module inside your specs. Here's an example:
+
+```ruby
+require 'spec_helper'
+
+describe Api::Base do
+  include GrapeRouteHelpers::NamedRouteMatcher
+
+  describe 'GET /ping' do
+    it 'returns a 200 OK' do
+      get api_v2_ping_path
+      expect(response.status).to be(200)
+    end
+  end
+end
 ```
 
 ### Contributing
