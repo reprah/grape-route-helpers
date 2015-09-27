@@ -2,6 +2,8 @@
 
 ## September 27 2015
 
+* Release 1.2.0
+
 * You can now assign custom helper names to Grape routes
 * Fixed a bug where routes would be listed more than once in the rake task if they are mounted to another API
 * Added the HTTP verb to rake task output

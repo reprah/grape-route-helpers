@@ -1,4 +1,4 @@
 # Gem version
 module GrapeRouteHelpers
-  VERSION = '1.0.1'
+  VERSION = '1.2.0'
 end
