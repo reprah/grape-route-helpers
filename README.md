@@ -56,6 +56,13 @@ To see which methods correspond to which paths, and which options you can pass t
 $ rake grape:route_helpers
 ```
 
+#### Use Helpers in IRB/Pry
+
+You can use helper methods in your REPL session by including a module:
+
+```ruby
+[1] pry(main)> include GrapeRouteHelpers::NamedRouteMatcher
+```
 #### Use Helpers in Your API
 
 Use the methods inside your Grape API actions. Given this example API:

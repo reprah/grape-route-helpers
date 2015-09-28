@@ -4,6 +4,10 @@ module GrapeRouteHelpers
     attr_reader :route, :helper_names, :helper_arguments,
                 :extension, :route_options
 
+    def self.sanitize_method_name(string)
+      string.gsub(/\W|^[0-9]/, '_')
+    end
+
     def initialize(route)
       @route = route
       @route_options = route.instance_variable_get(:@options)
@@ -80,7 +84,8 @@ module GrapeRouteHelpers
                end
       end
 
-      name + '_path'
+      sanitized_name = self.class.sanitize_method_name(name)
+      sanitized_name + '_path'
     end
 
     def segment_to_value(segment, opts = {})

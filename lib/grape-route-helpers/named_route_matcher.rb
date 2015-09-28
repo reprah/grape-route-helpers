@@ -4,6 +4,7 @@ module GrapeRouteHelpers
   # helper function name
   module NamedRouteMatcher
     def method_missing(method_id, *arguments)
+      super unless method_id.to_s.match(/_path$/)
       segments = arguments.first || {}
 
       route = Grape::API.decorated_routes.detect do |r|

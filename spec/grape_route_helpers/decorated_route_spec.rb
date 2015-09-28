@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe GrapeRouteHelpers::DecoratedRoute do
-  let(:api) { Spec::Support::RouteMatcherHelpers.api }
+  let(:api) { Spec::Support::API }
 
   let(:routes) do
     api.routes.map do |route|
@@ -25,6 +25,27 @@ describe GrapeRouteHelpers::DecoratedRoute do
     routes.detect { |route| route.route_path =~ /custom_name/ }
   end
 
+  let(:ping_route) do
+    routes.detect { |route| route.route_path =~ /ping/ }
+  end
+
+  describe '#sanitize_method_name' do
+    it 'removes characters that are illegal in Ruby method names' do
+      illegal_names = ['beta-1', 'name_with_+', 'name_with_(']
+      sanitized = illegal_names.map do |name|
+        described_class.sanitize_method_name(name)
+      end
+      expect(sanitized).to match_array(%w(beta_1 name_with__ name_with__))
+    end
+
+    it 'only replaces integers if they appear at the beginning' do
+      illegal_name = '1'
+      legal_name = 'v1'
+      expect(described_class.sanitize_method_name(illegal_name)).to eq('_')
+      expect(described_class.sanitize_method_name(legal_name)).to eq('v1')
+    end
+  end
+
   describe '#helper_names' do
     context 'when a route is given a custom helper name' do
       it 'uses the custom name instead of the dynamically generated one' do
@@ -40,15 +61,11 @@ describe GrapeRouteHelpers::DecoratedRoute do
     end
 
     context 'when an API has multiple versions' do
-      let(:api_versions) { %w(beta alpha v1) }
-
-      before do
-        api.version api_versions
-      end
+      let(:api) { Spec::Support::APIWithMultipleVersions }
 
       it "returns the route's helper name for each version" do
-        helper_names = show_route.helper_names
-        expect(helper_names.size).to eq(api_versions.size)
+        helper_names = ping_route.helper_names
+        expect(helper_names.size).to eq(api.version.size)
       end
     end
 
@@ -191,13 +208,12 @@ describe GrapeRouteHelpers::DecoratedRoute do
     end
 
     context "when a route's API has multiple versions" do
-      before(:each) do
-        api.version %w(v1 v2)
-      end
+      let(:api) { Spec::Support::APIWithMultipleVersions }
 
       it 'returns a path for each version' do
-        expect(index_route.api_v1_cats_path).to eq('/api/v1/cats.json')
-        expect(index_route.api_v2_cats_path).to eq('/api/v2/cats.json')
+        expect(ping_route.alpha_ping_path).to eq('/alpha/ping')
+        expect(ping_route.beta_ping_path).to eq('/beta/ping')
+        expect(ping_route.v1_ping_path).to eq('/v1/ping')
       end
     end
 

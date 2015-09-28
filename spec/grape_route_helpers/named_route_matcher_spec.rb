@@ -3,16 +3,13 @@ require 'spec_helper'
 describe GrapeRouteHelpers::NamedRouteMatcher do
   include described_class
 
-  let(:api) { Spec::Support::RouteMatcherHelpers.api }
-
   let(:routes) do
-    api
     Grape::API.decorated_routes
   end
 
   let(:ping_route) do
     routes.detect do |route|
-      route.route_path =~ /ping/
+      route.route_path =~ /ping/ && route.route_version == 'v1'
     end
   end
 
@@ -120,16 +117,12 @@ describe GrapeRouteHelpers::NamedRouteMatcher do
   describe '#method_missing' do
     context 'when method name matches a Grape::Route path helper name' do
       it 'returns the path for that route object' do
-        api
-
         path = api_v1_ping_path
         expect(path).to eq('/api/v1/ping.json')
       end
 
       context 'when argument to the helper is not a hash' do
         it 'raises an ArgumentError' do
-          api
-
           expect do
             api_v1_ping_path(1234)
           end.to raise_error(ArgumentError)
@@ -139,8 +132,6 @@ describe GrapeRouteHelpers::NamedRouteMatcher do
 
     context 'when method name does not match a Grape::Route path helper name' do
       it 'raises a NameError' do
-        api
-
         expect do
           some_method_name
         end.to raise_error(NameError)
@@ -151,8 +142,6 @@ describe GrapeRouteHelpers::NamedRouteMatcher do
   context 'when Grape::Route objects share the same helper name' do
     context 'when helpers require different segments to generate their path' do
       it 'uses arguments to infer which route to use' do
-        api
-
         show_path = api_v1_cats_path('id' => 1)
         expect(show_path).to eq('/api/v1/cats/1.json')
 
@@ -163,8 +152,6 @@ describe GrapeRouteHelpers::NamedRouteMatcher do
 
     context 'when query params are passed in' do
       it 'uses arguments to infer which route to use' do
-        api
-
         show_path = api_v1_cats_path('id' => 1, params: { 'foo' => 'bar' })
         expect(show_path).to eq('/api/v1/cats/1.json?foo=bar')
 

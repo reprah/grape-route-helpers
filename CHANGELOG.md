@@ -1,5 +1,10 @@
 # Changelog
 
+## October 11 2015
+
+* Release 1.2.1
+* Fixed issue #4
+
 ## September 27 2015
 
 * Release 1.2.0

@@ -5,7 +5,7 @@ describe GrapeRouteHelpers::AllRoutes do
 
   describe '#all_routes' do
     context 'when API is mounted within another API' do
-      let(:mounting_api) { Spec::Support::RouteMatcherHelpers.mounting_api }
+      let(:mounting_api) { Spec::Support::MountedAPI }
 
       it 'does not include the same route twice' do
         mounting_api
@@ -20,7 +20,7 @@ describe GrapeRouteHelpers::AllRoutes do
         end
 
         expect(duplicates).to be_empty
-        expect(all_route_options.size).to eq(5)
+        expect(all_route_options.size).to eq(6)
       end
     end
   end
