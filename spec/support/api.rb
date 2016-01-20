@@ -43,6 +43,7 @@ module Spec
     # API with another API mounted inside it
     class MountedAPI < Grape::API
       mount Spec::Support::API
+      mount Spec::Support::APIWithMultipleVersions
     end
 
     # API with a version that would be illegal as a method name
