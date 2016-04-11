@@ -20,7 +20,8 @@ describe GrapeRouteHelpers::AllRoutes do
         end
 
         expect(duplicates).to be_empty
-        expect(all_route_options.size).to eq(6)
+        expect(all_route_options.size).to eq(7)
+
       end
     end
   end
