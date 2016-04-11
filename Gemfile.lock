@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    grape-route-helpers (1.2.1)
+    grape-route-helpers (1.2.2)
       activesupport
       grape
       rake
@@ -45,7 +45,7 @@ GEM
     ice_nine (0.11.1)
     json (1.8.3)
     method_source (0.8.2)
-    minitest (5.7.0)
+    minitest (5.8.3)
     multi_json (1.11.2)
     multi_xml (0.5.5)
     parser (2.3.0.pre.2)
@@ -102,4 +102,4 @@ DEPENDENCIES
   rubocop
 
 BUNDLED WITH
-   1.10.6
+   1.11.2

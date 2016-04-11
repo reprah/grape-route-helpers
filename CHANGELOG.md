@@ -1,5 +1,10 @@
 # Changelog
 
+## April 11 2016
+
+* Release 1.2.2
+* Fixed incompatibility between grape-route-helpers and Ruby 2.3 by merging PR #8 from phallguy
+
 ## October 11 2015
 
 * Release 1.2.1
