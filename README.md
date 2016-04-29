@@ -2,9 +2,13 @@
 
 [![Build Status](https://travis-ci.org/reprah/grape-route-helpers.svg)](https://travis-ci.org/reprah/grape-route-helpers)
 
- Provides named route helpers for Grape APIs, similar to [Rails' route helpers](http://edgeguides.rubyonrails.org/routing.html#path-and-url-helpers).
+Provides named route helpers for Grape APIs, similar to [Rails' route helpers](http://edgeguides.rubyonrails.org/routing.html#path-and-url-helpers).
 
 ### Installation
+
+#### Compatibility with Grape
+
+If you're using grape 0.16.0 or higher, you'll need version 2.0.0 or higher of grape-route-helpers.
 
 #### Rails
 
@@ -132,7 +136,7 @@ This results in creating a helper called `is_the_server_running_path`.
 
 #### Testing
 
-You can you the route helpers in our API tests by including the `GrapeRouteHelpers::NamedRouteMatcher` module inside your specs. Here's an example:
+You can use route helpers in your API tests by including the `GrapeRouteHelpers::NamedRouteMatcher` module inside your specs. Here's an example:
 
 ```ruby
 require 'spec_helper'

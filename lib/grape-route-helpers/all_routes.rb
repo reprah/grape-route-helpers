@@ -10,10 +10,7 @@ module GrapeRouteHelpers
 
     def all_routes
       routes = subclasses.flat_map { |s| s.send(:prepare_routes) }
-      # delete duplicate routes
-      routes.uniq do |route|
-        route.instance_variable_get( :@options )
-      end
+      routes.uniq(&:options)
     end
   end
 end

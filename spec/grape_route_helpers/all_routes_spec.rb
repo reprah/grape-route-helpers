@@ -21,7 +21,6 @@ describe GrapeRouteHelpers::AllRoutes do
 
         expect(duplicates).to be_empty
         expect(all_route_options.size).to eq(7)
-
       end
     end
   end

@@ -1,5 +1,10 @@
 # Changelog
 
+## April 28 2016
+
+* Release 2.0.0
+* Fix incompatibility between grape-route-helpers and grape 0.16.0
+
 ## April 11 2016
 
 * Release 1.2.2
