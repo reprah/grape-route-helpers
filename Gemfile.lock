@@ -3,7 +3,7 @@ PATH
   specs:
     grape-route-helpers (2.0.0)
       activesupport
-      grape (~> 0.16, >= 0.16.0)
+      grape (>= 0.16.0)
       rake
 
 GEM
