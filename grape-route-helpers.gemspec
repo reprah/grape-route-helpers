@@ -11,7 +11,7 @@ Gem::Specification.new do |gem|
   gem.files       = `git ls-files`.split($INPUT_RECORD_SEPARATOR)
   gem.homepage    = 'https://github.com/reprah/grape-route-helpers'
 
-  gem.add_runtime_dependency 'grape', '~> 0.16', '>= 0.16.0'
+  gem.add_runtime_dependency 'grape', '>= 0.16.0'
   gem.add_runtime_dependency 'activesupport'
   gem.add_runtime_dependency 'rake'
 
