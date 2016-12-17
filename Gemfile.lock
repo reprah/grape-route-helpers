@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    grape-route-helpers (2.0.0)
+    grape-route-helpers (2.1.0)
       activesupport
       grape (>= 0.16.0)
       rake

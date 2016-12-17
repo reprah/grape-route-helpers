@@ -60,6 +60,14 @@ describe GrapeRouteHelpers::DecoratedRoute do
       end
     end
 
+    context 'when an API has multiple POST routes in a resource' do
+      let(:api) { Spec::Support::MultiplePostsAPI }
+
+      it 'it creates a helper for each POST route' do
+        expect(routes.size).to eq(2)
+      end
+    end
+
     context 'when an API has multiple versions' do
       let(:api) { Spec::Support::APIWithMultipleVersions }
 

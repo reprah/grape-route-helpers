@@ -54,5 +54,16 @@ module Spec
         'pong'
       end
     end
+
+    # API with multiple POST routes
+    class MultiplePostsAPI < Grape::API
+      resource :hamlet do
+        post 'to_be' do
+        end
+
+        post 'or_not_to_be' do
+        end
+      end
+    end
   end
 end

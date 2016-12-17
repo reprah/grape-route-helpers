@@ -10,7 +10,7 @@ module GrapeRouteHelpers
 
     def all_routes
       routes = subclasses.flat_map { |s| s.send(:prepare_routes) }
-      routes.uniq(&:options)
+      routes.uniq { |r| r.options.merge(path: r.path) }
     end
   end
 end

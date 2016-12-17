@@ -1,5 +1,10 @@
 # Changelog
 
+## December 17 2016
+
+* Bump to 2.1.0
+* Fix bug that caused POST routes to be ignored if more than one was defined
+
 ## April 28 2016
 
 * Release 2.0.0

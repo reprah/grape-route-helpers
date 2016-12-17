@@ -12,7 +12,7 @@ describe GrapeRouteHelpers::AllRoutes do
 
         # A route is unique if no other route shares the same set of options
         all_route_options = Grape::API.all_routes.map do |r|
-          r.instance_variable_get(:@options)
+          r.instance_variable_get(:@options).merge(path: r.path)
         end
 
         duplicates = all_route_options.select do |o|
@@ -20,7 +20,15 @@ describe GrapeRouteHelpers::AllRoutes do
         end
 
         expect(duplicates).to be_empty
-        expect(all_route_options.size).to eq(7)
+      end
+    end
+
+    context 'when there are multiple POST routes with the same namespace in the same API' do
+      it 'returns all POST routes' do
+        expected_routes = Spec::Support::MultiplePostsAPI.routes.map(&:path)
+
+        all_routes = Grape::API.all_routes
+        expect(all_routes.map(&:path)).to include(*expected_routes)
       end
     end
   end
