@@ -4,6 +4,7 @@
 
 * Bump to 2.1.0
 * Fix bug that caused POST routes to be ignored if more than one was defined
+* Many thanks to @njd5475 for the bug report and pull request that helped me write this
 
 ## April 28 2016
 
